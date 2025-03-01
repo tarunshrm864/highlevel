@@ -1,0 +1,19 @@
+{
+  "name": "highlevel",
+  "version": "1.0.0",
+  "description": "bulk-upload",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarunshrm864/highlevel.git"
+  },
+  "author": "Tarun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarunshrm864/highlevel/issues"
+  },
+  "homepage": "https://github.com/tarunshrm864/highlevel#readme"
+}
