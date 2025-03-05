@@ -1,0 +1,38 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS highlevel;
+USE highlevel;
+
+CREATE TABLE IF NOT EXISTS BulkActions (
+    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    entityType VARCHAR(255) NOT NULL,
+    actionType VARCHAR(10) NOT NULL,
+    status ENUM('pending', 'processing', 'completed', 'failed') DEFAULT 'pending',
+    successCount INT DEFAULT 0,
+    failureCount INT DEFAULT 0,
+    skippedCount INT DEFAULT 0,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    scheduledAt TIMESTAMP NULL,
+    accountId VARCHAR(36) NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS Contacts (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE IF NOT EXISTS BulkActionLogs (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    bulkActionId VARCHAR(36) NULL,
+    recordId INT NULL,
+    status ENUM('success', 'failure', 'skipped') NOT NULL,
+    errorMessage TEXT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    accountId VARCHAR(36) NULL,
+    FOREIGN KEY (bulkActionId) REFERENCES BulkActions(id) ON DELETE CASCADE
+);
